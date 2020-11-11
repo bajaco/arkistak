@@ -4,5 +4,5 @@ Arkistak is intended to be a full-stack application generator that parses JSON t
 
 Currently only has functionality to generate a virtual environment, source it, and install packages.
 
-To test: `python -m arkistak'
+To test: `python -m arkistak`
 
