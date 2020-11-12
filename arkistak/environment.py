@@ -21,8 +21,11 @@ class VenvController:
 
         
     def activate(self):
+        
+        # Only activating if venv created
         if not os.path.exists(self.base):
             return False
+        
         # Activate new environment. refer to 
         # https://github.com/pypa/virtualenv/blob/main
         # /src/virtualenv/activation/python/activate_this.py
