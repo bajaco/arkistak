@@ -6,35 +6,43 @@
 	"frontend": {
 		"framework": "react"
 	},
-	"models": {
-		"store": {
-			"owner": {
+	"models": [
+		{ "name": "store", "attributes": [
+			{
+				"aname": "owner",
 				"type": "char",
 				"length": 30,
 				"nullable": false
 			},
-			"address": {
+			{
+				"aname": "address",
 				"type": "char",
 				"length": 60,
 				"nullable": false
 			}
+		]
 		},
-		"product": {
-			"name": {
+		{ "name": "product", "attributes": [
+			{
+				"aname": "name",
 				"type": "char",
 				"length": 40,
 				"nullable": false
 			},
-			"price": {
+			{
+				"aname": "price",
 				"type": "decimal",
 				"nullable": false
 			},
-			"description": {
+			{
+				"aname": "description",
 				"type": "char",
+				"length": 300,
 				"nullable": true
 			}
+		]
 		}
-	},
+	],
 	"pages": {
 		"plural": ["store", "product"],
 		"singular": ["product"]
