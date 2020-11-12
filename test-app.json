@@ -1,0 +1,43 @@
+{
+	"backend": {
+		"framework": "flask",
+		"database": "postgres"
+	},
+	"frontend": {
+		"framework": "react"
+	},
+	"models": {
+		"store": {
+			"owner": {
+				"type": "char",
+				"length": 30,
+				"nullable": false
+			},
+			"address": {
+				"type": "char",
+				"length": 60,
+				"nullable": false
+			}
+		},
+		"product": {
+			"name": {
+				"type": "char",
+				"length": 40,
+				"nullable": false
+			},
+			"price": {
+				"type": "decimal",
+				"nullable": false
+			},
+			"description": {
+				"type": "char",
+				"nullable": true
+			}
+		}
+	},
+	"pages": {
+		"plural": ["store", "product"],
+		"singular": ["product"]
+	}
+
+}
