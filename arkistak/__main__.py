@@ -1,13 +1,49 @@
 import os
 import subprocess
+import sys
+import importlib
+import json
+from pathlib import Path
 from .venv_controller import VenvController
 from .parse_args import parse_args
 
 def create(args):
+    
+    # Verify template
+    if not os.path.exists(args[1] + '.json'):
+        print(f'Template file {args[1]}.json not found!')
+        sys.exit()
+    
+    # Initialize and activate venv
     venv = VenvController()
     venv.create(args[1])
     venv.activate()
-    subprocess.call('pip install flask', shell=True)
+    
+    # Load template
+    with open(args[1] + '.json') as f:
+        template = json.load(f)
+    
+    # Verify generators 
+    backend_path = (Path(__file__).absolute().parent / 
+            'generators' / 'backend' / 
+            (template['backend']['framework'] + '.py'))
+    if not os.path.exists(str(backend_path)):
+        print(f'Backend generator {template["backend"]["framework"]}.py not found!')
+        sys.exit()
+    
+    frontend_path = (Path(__file__).absolute().parent / 
+            'generators' / 'frontend' / 
+            (template['frontend']['framework'] + '.py'))
+    if not os.path.exists(str(frontend_path)):
+        print(f'Frontend generator {template["frontend"]["framework"]}.py not found!')
+        sys.exit()
+    
+
+    backendGenerator = __import__(
+            f'arkistak.generators.backend.{template["backend"]["framework"]}',
+            fromlist = ['']).BackendGenerator 
+    backendGenerator.hello()
+
 
 def pip(args):
     venv = VenvController()    
