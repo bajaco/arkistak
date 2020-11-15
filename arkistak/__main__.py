@@ -18,7 +18,10 @@ def create(args):
     venv = VenvController()
     venv.create(args[1])
     venv.activate()
-    
+   
+    # Make application directory
+    os.mkdir(args[1])
+
     # Load template
     with open(args[1] + '.json') as f:
         template = json.load(f)
@@ -39,10 +42,12 @@ def create(args):
         sys.exit()
     
 
-    backendGenerator = __import__(
+    BackendGenerator = __import__(
             f'arkistak.generators.backend.{template["backend"]["framework"]}',
             fromlist = ['']).BackendGenerator 
-    backendGenerator.hello()
+    backendGenerator = BackendGenerator(args[1], template)
+    backendGenerator.install()
+    backendGenerator.generate()
 
 
 def pip(args):
